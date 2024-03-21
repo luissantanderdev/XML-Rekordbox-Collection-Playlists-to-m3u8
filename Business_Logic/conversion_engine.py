@@ -18,17 +18,20 @@ class PlaylistNode(FolderNode):
         self.track_ids = []
 
 # =======================================================================
-
+        
 class ConversionEngine:
     def __init__(self) -> None:
         self.file_path = "" 
 
         # Constants 
         self.MUSIC_COLLECTION_ELEMENTS = {}
-        self.CURRENT_WORKING_DIRECTORY = os.getcwd() 
+
+        
+        # self.CURRENT_WORKING_DIRECTORY = os.getcwd()
+
+        self.CURRENT_WORKING_DIRECTORY = os.path.expanduser("~")
         self.RECKORDBOX_PLAYLIST_DIRECTORY_NAME = "reckordbox_playlists"
         
-
     # MARK: Validates if File Being Loaded is XML file type 
         
     def is_xml_file(self, file_path) -> bool:
@@ -82,7 +85,6 @@ class ConversionEngine:
                 child_node = self.traverse_playlists_tree_structure(child_element, depth+1)
                 folder.children.append(child_node)
         elif element.attrib["Type"] == '1':
-            print("Playlist Hit")
             folder = PlaylistNode(element.attrib["Name"])
             tracks = self.__traverse_playlist(element)
             folder.track_ids.extend(tracks)

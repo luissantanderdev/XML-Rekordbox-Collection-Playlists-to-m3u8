@@ -22,6 +22,10 @@ class MainWindow:
         self.file_label = tk.Label(self.window, text="Load a reckordbox xml playlist collection")
         self.file_label.grid(row=2, column=0, pady=5) 
 
+        # For Deployment Purposes Debugger
+        self.test_label = tk.Label(self.window, text=self.engine.CURRENT_WORKING_DIRECTORY)
+        self.test_label.grid(row=3, column=0, pady=5) 
+
         self.window.mainloop()
 
     # MARK: - Init State (PRIVATE)
@@ -40,15 +44,12 @@ class MainWindow:
         self.engine.load_xml_tree()
         result = self.engine.create_dictionary_of_tracks_from_collection()
 
-        # TODO: Write This Code 
         if result: 
             self.engine.traverse_playlist_tree()
             self.engine.generate_playlists() 
             self.load_file_button.config(text="Yes", command=self.__reset)
             self.no_button.grid(row=1, column=0, pady=5) 
             self.file_label.config(text="Would You Like to Load another xml collection?")
-        else: 
-            print("Collection is not a valid reckordbox playlist xml")
 
     # MARK: - Load XML File unto Conversion Engine Action 
         
